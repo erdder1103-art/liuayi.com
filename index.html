@@ -5,38 +5,155 @@
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
 <title>劉阿姨-開LINE即玩-正規平台1:100</title>
 
+<!-- Meta Pixel Code -->
 <script>
-!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
-n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
-t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}
-(window, document,'script','https://connect.facebook.net/en_US/fbevents.js');
+!function(f,b,e,v,n,t,s){
+  if(f.fbq)return;
+  n=f.fbq=function(){
+    n.callMethod ? n.callMethod.apply(n,arguments) : n.queue.push(arguments)
+  };
+  if(!f._fbq)f._fbq=n;
+  n.push=n;
+  n.loaded=!0;
+  n.version='2.0';
+  n.queue=[];
+  t=b.createElement(e);
+  t.async=!0;
+  t.src=v;
+  s=b.getElementsByTagName(e)[0];
+  s.parentNode.insertBefore(t,s);
+}(window, document,'script','https://connect.facebook.net/en_US/fbevents.js');
 
 fbq('init','961107183386052');
-fbq('track','PageView');
+fbq('trackSingle','961107183386052','PageView');
 </script>
 
 <noscript>
   <img height="1" width="1" style="display:none"
        src="https://www.facebook.com/tr?id=961107183386052&ev=PageView&noscript=1"/>
 </noscript>
+<!-- End Meta Pixel Code -->
 
 <style>
-body{margin:0;background:#000;font-family:system-ui,-apple-system,"PingFang TC","Noto Sans TC",Arial;}
-.wrapper{display:flex;justify-content:center;align-items:center;min-height:100vh;}
-.frame{position:relative;width:100%;max-width:420px;aspect-ratio:9/16;overflow:hidden;}
-.bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
-.logo{position:absolute;top:-15%;left:70%;transform:translateX(-50%);width:60%;}
-.ip{position:absolute;bottom:12%;left:50%;transform:translateX(-50%);width:200%;}
-.btnWrapper{position:absolute;bottom:-25%;left:50%;transform:translateX(-50%);width:100%;}
-.btn{width:100%;cursor:pointer;display:block;animation:breath 1.8s ease-in-out infinite;}
-@keyframes breath{0%{transform:scale(1);}50%{transform:scale(1.08);}100%{transform:scale(1);}}
+*{
+  box-sizing:border-box;
+}
 
-.tap{position:absolute;display:block;cursor:pointer;-webkit-tap-highlight-color:transparent;}
-.tap-bg{inset:0;}
-.tap-logo{top:-5%;left:50%;transform:translateX(-50%);width:60%;height:22%;}
-.tap-ip{bottom:12%;left:50%;transform:translateX(-50%);width:90%;height:22%;}
-.tap-btn{bottom:6%;left:50%;transform:translateX(-50%);width:80%;height:12%;}
+html,body{
+  margin:0;
+  padding:0;
+  width:100%;
+  min-height:100%;
+  background:#000;
+  font-family:system-ui,-apple-system,"PingFang TC","Noto Sans TC",Arial,sans-serif;
+}
+
+.wrapper{
+  width:100%;
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background:#000;
+}
+
+.frame{
+  position:relative;
+  width:100%;
+  max-width:420px;
+  aspect-ratio:9/16;
+  overflow:hidden;
+  background:#000;
+}
+
+.bg{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  z-index:1;
+}
+
+.logo{
+  position:absolute;
+  top:-15%;
+  left:70%;
+  transform:translateX(-50%);
+  width:60%;
+  z-index:2;
+  pointer-events:none;
+}
+
+.ip{
+  position:absolute;
+  bottom:12%;
+  left:50%;
+  transform:translateX(-50%);
+  width:200%;
+  z-index:3;
+  pointer-events:none;
+}
+
+.btnWrapper{
+  position:absolute;
+  bottom:-25%;
+  left:50%;
+  transform:translateX(-50%);
+  width:100%;
+  z-index:10;
+}
+
+.btn{
+  width:100%;
+  display:block;
+  cursor:pointer;
+  animation:breath 1.8s ease-in-out infinite;
+}
+
+@keyframes breath{
+  0%{transform:scale(1);}
+  50%{transform:scale(1.08);}
+  100%{transform:scale(1);}
+}
+
+.tap{
+  position:absolute;
+  display:block;
+  cursor:pointer;
+  -webkit-tap-highlight-color:transparent;
+  background:rgba(255,255,255,0);
+  z-index:9;
+}
+
+.tap-bg{
+  inset:0;
+}
+
+.tap-logo{
+  top:-5%;
+  left:50%;
+  transform:translateX(-50%);
+  width:60%;
+  height:22%;
+}
+
+.tap-ip{
+  bottom:12%;
+  left:50%;
+  transform:translateX(-50%);
+  width:90%;
+  height:22%;
+}
+
+.tap-btn{
+  bottom:6%;
+  left:50%;
+  transform:translateX(-50%);
+  width:80%;
+  height:12%;
+  z-index:11;
+}
 </style>
 </head>
 
@@ -49,38 +166,45 @@ body{margin:0;background:#000;font-family:system-ui,-apple-system,"PingFang TC",
 
     <div class="btnWrapper">
       <a href="https://line.me/R/ti/p/@627yzfja" class="goLine" data-area="btn" rel="noopener">
-        <img src="assets/btn.png" class="btn" alt="" loading="eager">
+        <img src="assets/btn.png" class="btn" alt="LINE官方 領取優惠" loading="eager">
       </a>
     </div>
 
-    <a href="https://line.me/R/ti/p/@627yzfja" class="goLine tap tap-bg" data-area="bg" rel="noopener" aria-label=""></a>
-    <a href="https://line.me/R/ti/p/@627yzfja" class="goLine tap tap-logo" data-area="logo" rel="noopener" aria-label=""></a>
-    <a href="https://line.me/R/ti/p/@627yzfja" class="goLine tap tap-ip" data-area="ip" rel="noopener" aria-label=""></a>
-    <a href="https://line.me/R/ti/p/@627yzfja" class="goLine tap tap-btn" data-area="btnOverlay" rel="noopener" aria-label=""></a>
+    <a href="https://line.me/R/ti/p/@627yzfja" class="goLine tap tap-bg" data-area="bg" rel="noopener" aria-label="前往 LINE 官方領取優惠"></a>
+    <a href="https://line.me/R/ti/p/@627yzfja" class="goLine tap tap-logo" data-area="logo" rel="noopener" aria-label="前往 LINE 官方領取優惠"></a>
+    <a href="https://line.me/R/ti/p/@627yzfja" class="goLine tap tap-ip" data-area="ip" rel="noopener" aria-label="前往 LINE 官方領取優惠"></a>
+    <a href="https://line.me/R/ti/p/@627yzfja" class="goLine tap tap-btn" data-area="btnOverlay" rel="noopener" aria-label="前往 LINE 官方領取優惠"></a>
   </div>
 </div>
 
 <script>
 (function(){
-  const LINE_URL = "https://line.me/R/ti/p/@627yzfja";
-  const REDIRECT_DELAY = 800;
   const PIXEL_ID = "961107183386052";
+  const LINE_URL = "https://line.me/R/ti/p/@627yzfja";
+
+  /*
+    追蹤事件延遲跳轉時間
+    1200ms 比 800ms 更穩，避免手機或 FB 內建瀏覽器漏事件
+    若你一定要 800ms，把 1200 改成 800 即可
+  */
+  const REDIRECT_DELAY = 1200;
+
+  let clicked = false;
 
   function uuidv4(){
-    if (window.crypto && typeof window.crypto.randomUUID === 'function') return window.crypto.randomUUID();
-    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g,function(c){
+    if(window.crypto && typeof window.crypto.randomUUID === "function"){
+      return window.crypto.randomUUID();
+    }
+
+    return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g,function(c){
       var r = Math.random() * 16 | 0;
-      var v = c === 'x' ? r : (r & 0x3 | 0x8);
+      var v = c === "x" ? r : (r & 0x3 | 0x8);
       return v.toString(16);
     });
   }
 
-  let clicked = false;
-
-  function firePixelEvent(eventName, area){
-    if (typeof fbq !== 'function') return;
-
-    const params = {
+  function buildParams(area){
+    return {
       action_source: "website",
       contact_method: "line",
       click_area: area || "unknown",
@@ -88,55 +212,89 @@ body{margin:0;background:#000;font-family:system-ui,-apple-system,"PingFang TC",
       destination_url: LINE_URL,
       event_source_url: window.location.href
     };
-
-    try {
-      fbq('trackSingle', PIXEL_ID, eventName, params, { eventID: eventName + "_" + uuidv4() });
-    } catch(e) {}
   }
 
-  function fireCustomLineClick(area){
-    if (typeof fbq !== 'function') return;
+  function sendStandardEvent(eventName, area){
+    if(typeof fbq !== "function"){
+      console.warn("Meta Pixel 尚未載入，未送出事件：", eventName);
+      return;
+    }
 
-    const params = {
-      action_source: "website",
-      contact_method: "line",
-      click_area: area || "unknown",
-      content_name: "LINE官方 領取優惠",
-      destination_url: LINE_URL,
-      event_source_url: window.location.href
-    };
+    var params = buildParams(area);
+    var eventId = eventName + "_" + uuidv4();
 
-    try {
-      fbq('trackSingleCustom', PIXEL_ID, 'LineClick', params, { eventID: "LineClick_" + uuidv4() });
-    } catch(e) {}
+    try{
+      fbq("trackSingle", PIXEL_ID, eventName, params, {
+        eventID: eventId
+      });
+
+      console.log("Meta Pixel 標準事件已送出：", eventName, params, eventId);
+    }catch(error){
+      console.error("Meta Pixel 標準事件送出失敗：", eventName, error);
+    }
+  }
+
+  function sendCustomEvent(area){
+    if(typeof fbq !== "function"){
+      console.warn("Meta Pixel 尚未載入，未送出自訂事件：LineClick");
+      return;
+    }
+
+    var params = buildParams(area);
+    var eventId = "LineClick_" + uuidv4();
+
+    try{
+      fbq("trackSingleCustom", PIXEL_ID, "LineClick", params, {
+        eventID: eventId
+      });
+
+      console.log("Meta Pixel 自訂事件已送出：LineClick", params, eventId);
+    }catch(error){
+      console.error("Meta Pixel 自訂事件送出失敗：LineClick", error);
+    }
   }
 
   function fireEvents(area){
-    firePixelEvent('Contact', area);
-    firePixelEvent('Lead', area);
-    fireCustomLineClick(area);
+    /*
+      Meta 標準事件：
+      Contact = 聯絡
+      Lead = 潛在用戶
+    */
+    sendStandardEvent("Contact", area);
+    sendStandardEvent("Lead", area);
+
+    /*
+      自訂事件：
+      LineClick = LINE 點擊
+      方便你在事件管理工具確認是否有點擊送出
+    */
+    sendCustomEvent(area);
   }
 
   function goLine(){
     window.location.href = LINE_URL;
   }
 
-  document.querySelectorAll('.goLine').forEach(function(a){
-    a.setAttribute('href', LINE_URL);
+  document.querySelectorAll(".goLine").forEach(function(link){
+    link.setAttribute("href", LINE_URL);
 
-    a.addEventListener('click', function(e){
+    link.addEventListener("click", function(e){
       e.preventDefault();
-      if (clicked) return;
+
+      if(clicked) return;
       clicked = true;
 
-      const area = a.getAttribute('data-area') || 'unknown';
+      var area = link.getAttribute("data-area") || "unknown";
+
       fireEvents(area);
 
-      setTimeout(goLine, REDIRECT_DELAY);
+      setTimeout(function(){
+        goLine();
+      }, REDIRECT_DELAY);
     });
   });
 
-  window.addEventListener('pageshow', function(){
+  window.addEventListener("pageshow", function(){
     clicked = false;
   });
 })();
