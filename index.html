@@ -154,6 +154,27 @@ html,body{
   height:12%;
   z-index:11;
 }
+
+.loadingText{
+  position:absolute;
+  left:50%;
+  bottom:3%;
+  transform:translateX(-50%);
+  z-index:20;
+  background:rgba(0,0,0,.72);
+  color:#fff;
+  font-size:14px;
+  font-weight:700;
+  padding:8px 14px;
+  border-radius:999px;
+  opacity:0;
+  pointer-events:none;
+  transition:.2s;
+}
+
+.loadingText.show{
+  opacity:1;
+}
 </style>
 </head>
 
@@ -174,6 +195,8 @@ html,body{
     <a href="https://line.me/R/ti/p/@627yzfja" class="goLine tap tap-logo" data-area="logo" rel="noopener" aria-label="前往 LINE 官方領取優惠"></a>
     <a href="https://line.me/R/ti/p/@627yzfja" class="goLine tap tap-ip" data-area="ip" rel="noopener" aria-label="前往 LINE 官方領取優惠"></a>
     <a href="https://line.me/R/ti/p/@627yzfja" class="goLine tap tap-btn" data-area="btnOverlay" rel="noopener" aria-label="前往 LINE 官方領取優惠"></a>
+
+    <div id="loadingText" class="loadingText">正在前往 LINE...</div>
   </div>
 </div>
 
@@ -183,11 +206,12 @@ html,body{
   const LINE_URL = "https://line.me/R/ti/p/@627yzfja";
 
   /*
-    追蹤事件延遲跳轉時間
-    1200ms 比 800ms 更穩，避免手機或 FB 內建瀏覽器漏事件
-    若你一定要 800ms，把 1200 改成 800 即可
+    重要：
+    1800ms 是為了讓手機、FB內建瀏覽器、LINE外跳有更多時間送出事件。
+    如果你要更快，可以改 1200。
+    如果你要更穩，可以改 2000。
   */
-  const REDIRECT_DELAY = 1200;
+  const REDIRECT_DELAY = 1800;
 
   let clicked = false;
 
@@ -209,19 +233,38 @@ html,body{
       contact_method: "line",
       click_area: area || "unknown",
       content_name: "LINE官方 領取優惠",
+      content_category: "LINE Landing Page",
       destination_url: LINE_URL,
       event_source_url: window.location.href
     };
   }
 
-  function sendStandardEvent(eventName, area){
+  function buildPurchaseParams(area){
+    return {
+      action_source: "website",
+      contact_method: "line",
+      click_area: area || "unknown",
+      content_name: "LINE官方 領取優惠",
+      content_category: "LINE Landing Page",
+      destination_url: LINE_URL,
+      event_source_url: window.location.href,
+
+      /*
+        銷售事件測試用：
+        台幣 TWD，金額 0
+      */
+      value: 0,
+      currency: "TWD"
+    };
+  }
+
+  function sendStandardEvent(eventName, params){
     if(typeof fbq !== "function"){
       console.warn("Meta Pixel 尚未載入，未送出事件：", eventName);
       return;
     }
 
-    var params = buildParams(area);
-    var eventId = eventName + "_" + uuidv4();
+    const eventId = eventName + "_" + uuidv4();
 
     try{
       fbq("trackSingle", PIXEL_ID, eventName, params, {
@@ -234,41 +277,45 @@ html,body{
     }
   }
 
-  function sendCustomEvent(area){
+  function sendCustomEvent(eventName, params){
     if(typeof fbq !== "function"){
-      console.warn("Meta Pixel 尚未載入，未送出自訂事件：LineClick");
+      console.warn("Meta Pixel 尚未載入，未送出自訂事件：", eventName);
       return;
     }
 
-    var params = buildParams(area);
-    var eventId = "LineClick_" + uuidv4();
+    const eventId = eventName + "_" + uuidv4();
 
     try{
-      fbq("trackSingleCustom", PIXEL_ID, "LineClick", params, {
+      fbq("trackSingleCustom", PIXEL_ID, eventName, params, {
         eventID: eventId
       });
 
-      console.log("Meta Pixel 自訂事件已送出：LineClick", params, eventId);
+      console.log("Meta Pixel 自訂事件已送出：", eventName, params, eventId);
     }catch(error){
-      console.error("Meta Pixel 自訂事件送出失敗：LineClick", error);
+      console.error("Meta Pixel 自訂事件送出失敗：", eventName, error);
     }
   }
 
   function fireEvents(area){
+    const normalParams = buildParams(area);
+    const purchaseParams = buildPurchaseParams(area);
+
     /*
       Meta 標準事件：
-      Contact = 聯絡
       Lead = 潛在用戶
+      Contact = 聯絡
+      Purchase = 銷售
     */
-    sendStandardEvent("Contact", area);
-    sendStandardEvent("Lead", area);
+    sendStandardEvent("Lead", normalParams);
+    sendStandardEvent("Contact", normalParams);
+    sendStandardEvent("Purchase", purchaseParams);
 
     /*
       自訂事件：
       LineClick = LINE 點擊
-      方便你在事件管理工具確認是否有點擊送出
+      方便你在測試事件裡確認按鈕點擊有沒有送出
     */
-    sendCustomEvent(area);
+    sendCustomEvent("LineClick", normalParams);
   }
 
   function goLine(){
@@ -284,7 +331,12 @@ html,body{
       if(clicked) return;
       clicked = true;
 
-      var area = link.getAttribute("data-area") || "unknown";
+      const area = link.getAttribute("data-area") || "unknown";
+
+      const loadingText = document.getElementById("loadingText");
+      if(loadingText){
+        loadingText.classList.add("show");
+      }
 
       fireEvents(area);
 
@@ -296,6 +348,11 @@ html,body{
 
   window.addEventListener("pageshow", function(){
     clicked = false;
+
+    const loadingText = document.getElementById("loadingText");
+    if(loadingText){
+      loadingText.classList.remove("show");
+    }
   });
 })();
 </script>
