@@ -3,14 +3,14 @@
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <title>劉阿姨-開LINE即玩 1:100</title>
+  <title>劉阿姨-開LINE即玩-1:100</title>
 
   <!-- Meta Pixel Code -->
   <script>
     window.APP_CONFIG = {
       PIXEL_ID: '961107183386052',
       LINE_URL: 'https://line.me/R/ti/p/@627yzfja',
-      REDIRECT_DELAY: 1200
+      REDIRECT_DELAY: 800
     };
 
     !function(f,b,e,v,n,t,s){
@@ -45,21 +45,17 @@
       box-sizing:border-box;
     }
 
-    html,body{
+    body{
       margin:0;
-      padding:0;
-      width:100%;
-      min-height:100%;
       background:#000;
-      font-family:system-ui,-apple-system,"PingFang TC","Noto Sans TC",Arial,sans-serif;
+      font-family:system-ui;
     }
 
     .wrapper{
-      width:100%;
-      min-height:100vh;
       display:flex;
       justify-content:center;
       align-items:center;
+      min-height:100vh;
       background:#000;
     }
 
@@ -81,6 +77,7 @@
       z-index:1;
     }
 
+    /* 劉阿姨原本 LOGO 位置 */
     .logo{
       position:absolute;
       top:-15%;
@@ -91,6 +88,7 @@
       pointer-events:none;
     }
 
+    /* 劉阿姨原本 IP 位置 */
     .ip{
       position:absolute;
       bottom:12%;
@@ -101,6 +99,7 @@
       pointer-events:none;
     }
 
+    /* 劉阿姨原本按鈕位置 */
     .btnWrapper{
       position:absolute;
       bottom:-25%;
@@ -120,8 +119,8 @@
     .btn{
       width:100%;
       display:block;
+      animation:breath 1.8s infinite;
       cursor:pointer;
-      animation:breath 1.8s ease-in-out infinite;
     }
 
     @keyframes breath{
@@ -130,6 +129,7 @@
       100%{transform:scale(1);}
     }
 
+    /* 保留劉阿姨原本透明點擊區 */
     .tap{
       position:absolute;
       display:block;
@@ -167,49 +167,26 @@
       height:12%;
       z-index:11;
     }
-
-    .loadingText{
-      position:absolute;
-      left:50%;
-      bottom:3%;
-      transform:translateX(-50%);
-      z-index:20;
-      background:rgba(0,0,0,.72);
-      color:#fff;
-      font-size:14px;
-      font-weight:700;
-      padding:8px 14px;
-      border-radius:999px;
-      opacity:0;
-      pointer-events:none;
-      transition:.2s;
-    }
-
-    .loadingText.show{
-      opacity:1;
-    }
   </style>
 </head>
 
 <body>
 <div class="wrapper">
   <div class="frame">
-    <img src="assets/bg.jpg" class="bg" alt="" loading="eager">
-    <img src="assets/logo.png" class="logo" alt="" loading="eager">
-    <img src="assets/ip.png" class="ip" alt="" loading="eager">
+    <img src="assets/bg.jpg" class="bg">
+    <img src="assets/logo.png" class="logo">
+    <img src="assets/ip.png" class="ip">
 
     <div class="btnWrapper">
-      <a href="https://line.me/R/ti/p/@627yzfja" class="goLine" data-area="btn" rel="noopener">
-        <img src="assets/btn.png" class="btn" alt="LINE官方 領取優惠" loading="eager">
+      <a href="https://line.me/R/ti/p/@627yzfja" class="goLine" data-area="main_cta">
+        <img src="assets/btn.png" class="btn">
       </a>
     </div>
 
-    <a href="https://line.me/R/ti/p/@627yzfja" class="goLine tap tap-bg" data-area="bg" rel="noopener" aria-label="前往 LINE 官方領取優惠"></a>
-    <a href="https://line.me/R/ti/p/@627yzfja" class="goLine tap tap-logo" data-area="logo" rel="noopener" aria-label="前往 LINE 官方領取優惠"></a>
-    <a href="https://line.me/R/ti/p/@627yzfja" class="goLine tap tap-ip" data-area="ip" rel="noopener" aria-label="前往 LINE 官方領取優惠"></a>
-    <a href="https://line.me/R/ti/p/@627yzfja" class="goLine tap tap-btn" data-area="btnOverlay" rel="noopener" aria-label="前往 LINE 官方領取優惠"></a>
-
-    <div id="loadingText" class="loadingText">正在前往 LINE...</div>
+    <a href="https://line.me/R/ti/p/@627yzfja" class="goLine tap tap-bg" data-area="bg"></a>
+    <a href="https://line.me/R/ti/p/@627yzfja" class="goLine tap tap-logo" data-area="logo"></a>
+    <a href="https://line.me/R/ti/p/@627yzfja" class="goLine tap tap-ip" data-area="ip"></a>
+    <a href="https://line.me/R/ti/p/@627yzfja" class="goLine tap tap-btn" data-area="btn_overlay"></a>
   </div>
 </div>
 
@@ -221,29 +198,28 @@
 
   function uuid(){
     return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g,function(c){
-      var r = Math.random() * 16 | 0;
-      var v = c == 'x' ? r : (r & 0x3 | 0x8);
+      var r=Math.random()*16|0,v=c=='x'?r:(r&0x3|0x8);
       return v.toString(16);
     });
   }
 
   function fireEvents(area){
     var base = {
-      content_name: "line_contact_click",
-      content_category: "line_redirect",
-      contact_method: "line",
-      click_area: area || "main_cta",
-      destination: "official_line"
+      content_name:"line_contact_click",
+      content_category:"line_redirect",
+      contact_method:"line",
+      click_area:area || "main_cta",
+      destination:"official_line"
     };
 
     var purchaseBase = {
-      content_name: "line_contact_click",
-      content_category: "line_redirect",
-      contact_method: "line",
-      click_area: area || "main_cta",
-      destination: "official_line",
-      value: 0,
-      currency: "TWD"
+      content_name:"line_contact_click",
+      content_category:"line_redirect",
+      contact_method:"line",
+      click_area:area || "main_cta",
+      destination:"official_line",
+      value:0,
+      currency:"TWD"
     };
 
     fbq('track','Contact',base,{eventID:'c_'+uuid()});
@@ -254,17 +230,10 @@
 
   function handleClick(e){
     e.preventDefault();
-
     if(hasClicked) return;
     hasClicked = true;
 
     var area = this.dataset.area || "main_cta";
-
-    var loadingText = document.getElementById("loadingText");
-    if(loadingText){
-      loadingText.classList.add("show");
-    }
-
     fireEvents(area);
 
     setTimeout(function(){
@@ -275,15 +244,6 @@
   document.querySelectorAll('.goLine').forEach(function(el){
     el.setAttribute('href', LINE_URL);
     el.addEventListener('click', handleClick, { passive:false });
-  });
-
-  window.addEventListener("pageshow", function(){
-    hasClicked = false;
-
-    var loadingText = document.getElementById("loadingText");
-    if(loadingText){
-      loadingText.classList.remove("show");
-    }
   });
 })();
 </script>
