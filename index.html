@@ -4,13 +4,14 @@
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
   <title>劉阿姨-LINE即玩-1:100</title>
+  <meta name="facebook-domain-verification" content="yf0jsegjtkpqk4j0ayo327oddygjxv" />
 
   <!-- Meta Pixel Code -->
   <script>
     window.APP_CONFIG = {
       PIXEL_ID: '961107183386052',
       LINE_URL: 'https://line.me/R/ti/p/@627yzfja',
-      REDIRECT_DELAY: 800
+      REDIRECT_DELAY: 1200
     };
 
     !function(f,b,e,v,n,t,s){
@@ -32,6 +33,20 @@
 
     fbq('init', window.APP_CONFIG.PIXEL_ID);
     fbq('track', 'PageView');
+
+    /*
+      備援 PageView：
+      如果 Pixel Helper 沒抓到 fbq，這個會強制送出 facebook.com/tr
+    */
+    (function(){
+      var img = new Image();
+      img.src = 'https://www.facebook.com/tr?id=' + window.APP_CONFIG.PIXEL_ID +
+        '&ev=PageView' +
+        '&dl=' + encodeURIComponent(window.location.href) +
+        '&rl=' + encodeURIComponent(document.referrer || '') +
+        '&if=false' +
+        '&ts=' + Date.now();
+    })();
   </script>
 
   <noscript>
@@ -94,6 +109,7 @@
 
 <script>
 (function () {
+  var PIXEL_ID = window.APP_CONFIG.PIXEL_ID;
   var LINE_URL = window.APP_CONFIG.LINE_URL;
   var REDIRECT_DELAY = window.APP_CONFIG.REDIRECT_DELAY;
   var hasClicked = false;
@@ -105,6 +121,24 @@
     });
   }
 
+  function sendFallbackPixel(eventName, params){
+    var url = 'https://www.facebook.com/tr?id=' + encodeURIComponent(PIXEL_ID) +
+      '&ev=' + encodeURIComponent(eventName) +
+      '&dl=' + encodeURIComponent(window.location.href) +
+      '&rl=' + encodeURIComponent(document.referrer || '') +
+      '&if=false' +
+      '&ts=' + Date.now();
+
+    if(params){
+      Object.keys(params).forEach(function(key){
+        url += '&cd[' + encodeURIComponent(key) + ']=' + encodeURIComponent(params[key]);
+      });
+    }
+
+    var img = new Image();
+    img.src = url;
+  }
+
   function fireEvents(area){
     var base = {
       content_name:"line_contact_click",
@@ -114,9 +148,34 @@
       destination:"official_line"
     };
 
-    fbq('track','Contact',base,{eventID:'c_'+uuid()});
-    fbq('track','Lead',base,{eventID:'l_'+uuid()});
-    fbq('trackCustom','LineClick',base,{eventID:'lc_'+uuid()});
+    var purchaseBase = {
+      content_name:"line_contact_click",
+      content_category:"line_redirect",
+      contact_method:"line",
+      click_area:area || "main_cta",
+      destination:"official_line",
+      value:0,
+      currency:"TWD"
+    };
+
+    /*
+      橙總派對原本寫法
+    */
+    if(typeof fbq === 'function'){
+      fbq('track','Contact',base,{eventID:'c_'+uuid()});
+      fbq('track','Lead',base,{eventID:'l_'+uuid()});
+      fbq('track','Purchase',purchaseBase,{eventID:'p_'+uuid()});
+      fbq('trackCustom','LineClick',base,{eventID:'lc_'+uuid()});
+    }
+
+    /*
+      備援強制回傳：
+      Network 一定會看到 facebook.com/tr
+    */
+    sendFallbackPixel('Contact', base);
+    sendFallbackPixel('Lead', base);
+    sendFallbackPixel('Purchase', purchaseBase);
+    sendFallbackPixel('LineClick', base);
   }
 
   function handleClick(e){
