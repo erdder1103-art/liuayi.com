@@ -7,25 +7,31 @@
 
 <!-- Meta Pixel Code -->
 <script>
-!function(f,b,e,v,n,t,s){
-  if(f.fbq)return;
-  n=f.fbq=function(){
-    n.callMethod ? n.callMethod.apply(n,arguments) : n.queue.push(arguments)
+  window.APP_CONFIG = {
+    PIXEL_ID: '961107183386052',
+    LINE_URL: 'https://line.me/R/ti/p/@627yzfja',
+    REDIRECT_DELAY: 1200
   };
-  if(!f._fbq)f._fbq=n;
-  n.push=n;
-  n.loaded=!0;
-  n.version='2.0';
-  n.queue=[];
-  t=b.createElement(e);
-  t.async=!0;
-  t.src=v;
-  s=b.getElementsByTagName(e)[0];
-  s.parentNode.insertBefore(t,s);
-}(window, document,'script','https://connect.facebook.net/en_US/fbevents.js');
 
-fbq('init','961107183386052');
-fbq('trackSingle','961107183386052','PageView');
+  !function(f,b,e,v,n,t,s){
+    if(f.fbq)return;
+    n=f.fbq=function(){
+      n.callMethod ? n.callMethod.apply(n,arguments) : n.queue.push(arguments);
+    };
+    if(!f._fbq)f._fbq=n;
+    n.push=n;
+    n.loaded=!0;
+    n.version='2.0';
+    n.queue=[];
+    t=b.createElement(e);
+    t.async=!0;
+    t.src=v;
+    s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s);
+  }(window, document,'script','https://connect.facebook.net/en_US/fbevents.js');
+
+  fbq('init', window.APP_CONFIG.PIXEL_ID);
+  fbq('track', 'PageView');
 </script>
 
 <noscript>
@@ -102,6 +108,13 @@ html,body{
   transform:translateX(-50%);
   width:100%;
   z-index:10;
+}
+
+.goLine{
+  display:block;
+  width:100%;
+  cursor:pointer;
+  -webkit-tap-highlight-color:transparent;
 }
 
 .btn{
@@ -202,156 +215,105 @@ html,body{
 
 <script>
 (function(){
-  const PIXEL_ID = "961107183386052";
-  const LINE_URL = "https://line.me/R/ti/p/@627yzfja";
+  var PIXEL_ID = window.APP_CONFIG.PIXEL_ID;
+  var LINE_URL = window.APP_CONFIG.LINE_URL;
+  var REDIRECT_DELAY = window.APP_CONFIG.REDIRECT_DELAY;
+  var hasClicked = false;
 
-  /*
-    重要：
-    1800ms 是為了讓手機、FB內建瀏覽器、LINE外跳有更多時間送出事件。
-    如果你要更快，可以改 1200。
-    如果你要更穩，可以改 2000。
-  */
-  const REDIRECT_DELAY = 1800;
-
-  let clicked = false;
-
-  function uuidv4(){
+  function uuid(){
     if(window.crypto && typeof window.crypto.randomUUID === "function"){
       return window.crypto.randomUUID();
     }
 
-    return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g,function(c){
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g,function(c){
       var r = Math.random() * 16 | 0;
-      var v = c === "x" ? r : (r & 0x3 | 0x8);
+      var v = c === 'x' ? r : (r & 0x3 | 0x8);
       return v.toString(16);
     });
   }
 
-  function buildParams(area){
-    return {
-      action_source: "website",
-      contact_method: "line",
-      click_area: area || "unknown",
-      content_name: "LINE官方 領取優惠",
-      content_category: "LINE Landing Page",
+  function fireEvents(area){
+    if(typeof fbq !== 'function'){
+      console.warn('fbq 尚未載入，點擊事件未送出');
+      return;
+    }
+
+    var base = {
+      content_name: 'liu_a_yi_line_contact_click',
+      content_category: 'line_redirect',
+      contact_method: 'line',
+      click_area: area || 'main_cta',
+      destination: 'official_line',
       destination_url: LINE_URL,
       event_source_url: window.location.href
     };
-  }
 
-  function buildPurchaseParams(area){
-    return {
-      action_source: "website",
-      contact_method: "line",
-      click_area: area || "unknown",
-      content_name: "LINE官方 領取優惠",
-      content_category: "LINE Landing Page",
+    var purchaseBase = {
+      content_name: 'liu_a_yi_line_contact_click',
+      content_category: 'line_redirect',
+      contact_method: 'line',
+      click_area: area || 'main_cta',
+      destination: 'official_line',
       destination_url: LINE_URL,
       event_source_url: window.location.href,
-
-      /*
-        銷售事件測試用：
-        台幣 TWD，金額 0
-      */
       value: 0,
-      currency: "TWD"
+      currency: 'TWD'
     };
-  }
-
-  function sendStandardEvent(eventName, params){
-    if(typeof fbq !== "function"){
-      console.warn("Meta Pixel 尚未載入，未送出事件：", eventName);
-      return;
-    }
-
-    const eventId = eventName + "_" + uuidv4();
-
-    try{
-      fbq("trackSingle", PIXEL_ID, eventName, params, {
-        eventID: eventId
-      });
-
-      console.log("Meta Pixel 標準事件已送出：", eventName, params, eventId);
-    }catch(error){
-      console.error("Meta Pixel 標準事件送出失敗：", eventName, error);
-    }
-  }
-
-  function sendCustomEvent(eventName, params){
-    if(typeof fbq !== "function"){
-      console.warn("Meta Pixel 尚未載入，未送出自訂事件：", eventName);
-      return;
-    }
-
-    const eventId = eventName + "_" + uuidv4();
-
-    try{
-      fbq("trackSingleCustom", PIXEL_ID, eventName, params, {
-        eventID: eventId
-      });
-
-      console.log("Meta Pixel 自訂事件已送出：", eventName, params, eventId);
-    }catch(error){
-      console.error("Meta Pixel 自訂事件送出失敗：", eventName, error);
-    }
-  }
-
-  function fireEvents(area){
-    const normalParams = buildParams(area);
-    const purchaseParams = buildPurchaseParams(area);
 
     /*
-      Meta 標準事件：
-      Lead = 潛在用戶
-      Contact = 聯絡
-      Purchase = 銷售
+      改成跟你正常可收到事件的版本一樣：
+      使用 fbq('track') / fbq('trackCustom')
     */
-    sendStandardEvent("Lead", normalParams);
-    sendStandardEvent("Contact", normalParams);
-    sendStandardEvent("Purchase", purchaseParams);
-
-    /*
-      自訂事件：
-      LineClick = LINE 點擊
-      方便你在測試事件裡確認按鈕點擊有沒有送出
-    */
-    sendCustomEvent("LineClick", normalParams);
-  }
-
-  function goLine(){
-    window.location.href = LINE_URL;
-  }
-
-  document.querySelectorAll(".goLine").forEach(function(link){
-    link.setAttribute("href", LINE_URL);
-
-    link.addEventListener("click", function(e){
-      e.preventDefault();
-
-      if(clicked) return;
-      clicked = true;
-
-      const area = link.getAttribute("data-area") || "unknown";
-
-      const loadingText = document.getElementById("loadingText");
-      if(loadingText){
-        loadingText.classList.add("show");
-      }
-
-      fireEvents(area);
-
-      setTimeout(function(){
-        goLine();
-      }, REDIRECT_DELAY);
+    fbq('track', 'Lead', base, {
+      eventID: 'lead_' + uuid()
     });
+
+    fbq('track', 'Contact', base, {
+      eventID: 'contact_' + uuid()
+    });
+
+    fbq('track', 'Purchase', purchaseBase, {
+      eventID: 'purchase_' + uuid()
+    });
+
+    fbq('trackCustom', 'LineClick', base, {
+      eventID: 'lineclick_' + uuid()
+    });
+
+    console.log('Meta Pixel 已送出：Lead / Contact / Purchase / LineClick', base);
+  }
+
+  function handleClick(e){
+    e.preventDefault();
+
+    if(hasClicked) return;
+    hasClicked = true;
+
+    var area = this.getAttribute('data-area') || 'main_cta';
+
+    var loadingText = document.getElementById('loadingText');
+    if(loadingText){
+      loadingText.classList.add('show');
+    }
+
+    fireEvents(area);
+
+    setTimeout(function(){
+      window.location.href = LINE_URL;
+    }, REDIRECT_DELAY);
+  }
+
+  document.querySelectorAll('.goLine').forEach(function(el){
+    el.setAttribute('href', LINE_URL);
+    el.addEventListener('click', handleClick, { passive:false });
   });
 
-  window.addEventListener("pageshow", function(){
-    clicked = false;
+  window.addEventListener('pageshow', function(){
+    hasClicked = false;
 
-    const loadingText = document.getElementById("loadingText");
+    var loadingText = document.getElementById('loadingText');
     if(loadingText){
-      loadingText.classList.remove("show");
+      loadingText.classList.remove('show');
     }
   });
 })();
