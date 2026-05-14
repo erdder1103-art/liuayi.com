@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <title>劉阿姨-開LINE即玩-1:100</title>
+  <title>劉阿姨-LINE即玩-1:100</title>
 
   <!-- Meta Pixel Code -->
   <script>
@@ -38,135 +38,42 @@
     <img height="1" width="1" style="display:none"
       src="https://www.facebook.com/tr?id=961107183386052&ev=PageView&noscript=1"/>
   </noscript>
-  <!-- End Meta Pixel Code -->
 
   <style>
-    *{
-      box-sizing:border-box;
-    }
+    *{box-sizing:border-box;}
+    body{margin:0;background:#000;font-family:system-ui;}
+    .wrapper{display:flex;justify-content:center;align-items:center;min-height:100vh;}
+    .frame{position:relative;width:100%;max-width:420px;aspect-ratio:9/16;overflow:hidden;background:#000;}
+    .bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
 
-    body{
-      margin:0;
-      background:#000;
-      font-family:system-ui;
-    }
-
-    .wrapper{
-      display:flex;
-      justify-content:center;
-      align-items:center;
-      min-height:100vh;
-      background:#000;
-    }
-
-    .frame{
-      position:relative;
-      width:100%;
-      max-width:420px;
-      aspect-ratio:9/16;
-      overflow:hidden;
-      background:#000;
-    }
-
-    .bg{
-      position:absolute;
-      inset:0;
-      width:100%;
-      height:100%;
-      object-fit:cover;
-      z-index:1;
-    }
-
-    /* 劉阿姨原本 LOGO 位置 */
     .logo{
       position:absolute;
       top:-15%;
       left:70%;
       transform:translateX(-50%);
       width:60%;
-      z-index:2;
-      pointer-events:none;
     }
 
-    /* 劉阿姨原本 IP 位置 */
     .ip{
       position:absolute;
       bottom:12%;
       left:50%;
       transform:translateX(-50%);
       width:200%;
-      z-index:3;
-      pointer-events:none;
     }
 
-    /* 劉阿姨原本按鈕位置 */
     .btnWrapper{
       position:absolute;
       bottom:-25%;
       left:50%;
       transform:translateX(-50%);
       width:100%;
-      z-index:10;
+      z-index:5;
     }
 
-    .goLine{
-      display:block;
-      width:100%;
-      cursor:pointer;
-      -webkit-tap-highlight-color:transparent;
-    }
-
-    .btn{
-      width:100%;
-      display:block;
-      animation:breath 1.8s infinite;
-      cursor:pointer;
-    }
-
-    @keyframes breath{
-      0%{transform:scale(1);}
-      50%{transform:scale(1.08);}
-      100%{transform:scale(1);}
-    }
-
-    /* 保留劉阿姨原本透明點擊區 */
-    .tap{
-      position:absolute;
-      display:block;
-      cursor:pointer;
-      -webkit-tap-highlight-color:transparent;
-      background:rgba(255,255,255,0);
-      z-index:9;
-    }
-
-    .tap-bg{
-      inset:0;
-    }
-
-    .tap-logo{
-      top:-5%;
-      left:50%;
-      transform:translateX(-50%);
-      width:60%;
-      height:22%;
-    }
-
-    .tap-ip{
-      bottom:12%;
-      left:50%;
-      transform:translateX(-50%);
-      width:90%;
-      height:22%;
-    }
-
-    .tap-btn{
-      bottom:6%;
-      left:50%;
-      transform:translateX(-50%);
-      width:80%;
-      height:12%;
-      z-index:11;
-    }
+    .goLine{display:block;width:100%;}
+    .btn{width:100%;animation:breath 1.8s infinite;}
+    @keyframes breath{0%{transform:scale(1);}50%{transform:scale(1.08);}100%{transform:scale(1);}}
   </style>
 </head>
 
@@ -182,11 +89,6 @@
         <img src="assets/btn.png" class="btn">
       </a>
     </div>
-
-    <a href="https://line.me/R/ti/p/@627yzfja" class="goLine tap tap-bg" data-area="bg"></a>
-    <a href="https://line.me/R/ti/p/@627yzfja" class="goLine tap tap-logo" data-area="logo"></a>
-    <a href="https://line.me/R/ti/p/@627yzfja" class="goLine tap tap-ip" data-area="ip"></a>
-    <a href="https://line.me/R/ti/p/@627yzfja" class="goLine tap tap-btn" data-area="btn_overlay"></a>
   </div>
 </div>
 
@@ -212,19 +114,8 @@
       destination:"official_line"
     };
 
-    var purchaseBase = {
-      content_name:"line_contact_click",
-      content_category:"line_redirect",
-      contact_method:"line",
-      click_area:area || "main_cta",
-      destination:"official_line",
-      value:0,
-      currency:"TWD"
-    };
-
     fbq('track','Contact',base,{eventID:'c_'+uuid()});
     fbq('track','Lead',base,{eventID:'l_'+uuid()});
-    fbq('track','Purchase',purchaseBase,{eventID:'p_'+uuid()});
     fbq('trackCustom','LineClick',base,{eventID:'lc_'+uuid()});
   }
 
@@ -242,7 +133,6 @@
   }
 
   document.querySelectorAll('.goLine').forEach(function(el){
-    el.setAttribute('href', LINE_URL);
     el.addEventListener('click', handleClick, { passive:false });
   });
 })();
