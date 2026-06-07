@@ -1,12 +1,14 @@
+```html
 <!doctype html>
 <html lang="zh-Hant">
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <title>劉阿姨-LINE即玩-1:100</title>
+  <title>劉阿姨</title>
+
   <meta name="facebook-domain-verification" content="yf0jsegjtkpqk4j0ayo327oddygjxv" />
 
-  <!-- 分享連結預覽圖：指定使用 IP 圖 -->
+  <!-- 分享連結預覽圖 -->
   <meta property="og:title" content="劉阿姨-LINE即玩-1:100"/>
   <meta property="og:description" content="加入官方LINE，查看活動詳情。"/>
   <meta property="og:image" content="assets/ip.png"/>
@@ -22,8 +24,8 @@
   <!-- Meta Pixel Code -->
   <script>
     window.APP_CONFIG = {
-      PIXEL_ID: '961107183386052',
-      LINE_URL: 'https://line.me/R/ti/p/@627yzfja',
+      PIXEL_ID: "961107183386052",
+      LINE_URL: "https://line.me/R/ti/p/@627yzfja",
       REDIRECT_DELAY: 1200
     };
 
@@ -35,30 +37,30 @@
       if(!f._fbq)f._fbq=n;
       n.push=n;
       n.loaded=!0;
-      n.version='2.0';
+      n.version="2.0";
       n.queue=[];
       t=b.createElement(e);
       t.async=!0;
       t.src=v;
       s=b.getElementsByTagName(e)[0];
       s.parentNode.insertBefore(t,s);
-    }(window, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js');
+    }(window, document, "script", "https://connect.facebook.net/en_US/fbevents.js");
 
-    fbq('init', window.APP_CONFIG.PIXEL_ID);
-    fbq('track', 'PageView');
+    fbq("init", window.APP_CONFIG.PIXEL_ID);
+    fbq("trackSingle", window.APP_CONFIG.PIXEL_ID, "PageView");
 
     /*
-      備援 PageView：
-      如果 Pixel Helper 沒抓到 fbq，這個會強制送出 facebook.com/tr
+      PageView 備援：
+      如果 Pixel Helper 沒抓到 fbq，Network 仍可看到 facebook.com/tr
     */
     (function(){
       var img = new Image();
-      img.src = 'https://www.facebook.com/tr?id=' + window.APP_CONFIG.PIXEL_ID +
-        '&ev=PageView' +
-        '&dl=' + encodeURIComponent(window.location.href) +
-        '&rl=' + encodeURIComponent(document.referrer || '') +
-        '&if=false' +
-        '&ts=' + Date.now();
+      img.src = "https://www.facebook.com/tr?id=" + encodeURIComponent(window.APP_CONFIG.PIXEL_ID) +
+        "&ev=PageView" +
+        "&dl=" + encodeURIComponent(window.location.href) +
+        "&rl=" + encodeURIComponent(document.referrer || "") +
+        "&if=false" +
+        "&ts=" + Date.now();
     })();
   </script>
 
@@ -66,20 +68,58 @@
     <img height="1" width="1" style="display:none"
       src="https://www.facebook.com/tr?id=961107183386052&ev=PageView&noscript=1"/>
   </noscript>
+  <!-- End Meta Pixel Code -->
 
   <style>
-    *{box-sizing:border-box;}
-    body{margin:0;background:#000;font-family:system-ui;}
-    .wrapper{display:flex;justify-content:center;align-items:center;min-height:100vh;}
-    .frame{position:relative;width:100%;max-width:420px;aspect-ratio:9/16;overflow:hidden;background:#000;}
-    .bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
+    *{
+      box-sizing:border-box;
+    }
+
+    html,body{
+      margin:0;
+      padding:0;
+      width:100%;
+      min-height:100%;
+      background:#000;
+      font-family:system-ui,-apple-system,"PingFang TC","Noto Sans TC",Arial,sans-serif;
+    }
+
+    .wrapper{
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      min-height:100vh;
+      min-height:100svh;
+      background:#000;
+    }
+
+    .frame{
+      position:relative;
+      width:100%;
+      max-width:420px;
+      aspect-ratio:9/16;
+      overflow:hidden;
+      background:#000;
+    }
+
+    .bg{
+      position:absolute;
+      inset:0;
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      z-index:1;
+      pointer-events:none;
+    }
 
     .logo{
       position:absolute;
-      top:-15%;
-      left:70%;
+      top:-5%;
+      left:50%;
       transform:translateX(-50%);
       width:60%;
+      z-index:2;
+      pointer-events:none;
     }
 
     .ip{
@@ -87,128 +127,196 @@
       bottom:12%;
       left:50%;
       transform:translateX(-50%);
-      width:200%;
+      width:90%;
+      z-index:2;
+      pointer-events:none;
     }
 
     .btnWrapper{
       position:absolute;
-      bottom:-25%;
+      bottom:6%;
       left:50%;
       transform:translateX(-50%);
-      width:100%;
-      z-index:5;
+      width:80%;
+      z-index:10;
     }
 
-    .goLine{display:block;width:100%;}
-    .btn{width:100%;animation:breath 1.8s infinite;}
-    @keyframes breath{0%{transform:scale(1);}50%{transform:scale(1.08);}100%{transform:scale(1);}}
+    .goLine{
+      display:block;
+      width:100%;
+      cursor:pointer;
+      -webkit-tap-highlight-color:transparent;
+      text-decoration:none;
+    }
+
+    .btn{
+      display:block;
+      width:100%;
+      height:auto;
+      cursor:pointer;
+      animation:breath 1.8s ease-in-out infinite;
+      will-change:transform;
+    }
+
+    @keyframes breath{
+      0%{transform:scale(1);}
+      50%{transform:scale(1.08);}
+      100%{transform:scale(1);}
+    }
   </style>
 </head>
 
 <body>
-<div class="wrapper">
-  <div class="frame">
-    <img src="assets/bg.jpg" class="bg">
-    <img src="assets/logo.png" class="logo">
-    <img src="assets/ip.png" class="ip">
+  <div class="wrapper">
+    <div class="frame">
+      <img src="assets/bg.jpg" class="bg" alt="" loading="eager" decoding="async">
+      <img src="assets/logo.png" class="logo" alt="" loading="eager" decoding="async">
+      <img src="assets/ip.png" class="ip" alt="" loading="eager" decoding="async">
 
-    <div class="btnWrapper">
-      <a href="https://line.me/R/ti/p/@627yzfja" class="goLine" data-area="main_cta">
-        <img src="assets/btn.png" class="btn">
-      </a>
+      <div class="btnWrapper">
+        <a href="https://line.me/R/ti/p/@627yzfja"
+           class="goLine"
+           data-area="btn"
+           rel="noopener"
+           aria-label="加入 LINE">
+          <img src="assets/btn.png" class="btn" alt="加入 LINE" loading="eager" decoding="async">
+        </a>
+      </div>
     </div>
   </div>
-</div>
 
-<script>
-(function () {
-  var PIXEL_ID = window.APP_CONFIG.PIXEL_ID;
-  var LINE_URL = window.APP_CONFIG.LINE_URL;
-  var REDIRECT_DELAY = window.APP_CONFIG.REDIRECT_DELAY;
-  var hasClicked = false;
+  <script>
+    (function(){
+      var PIXEL_ID = window.APP_CONFIG.PIXEL_ID;
+      var LINE_URL = window.APP_CONFIG.LINE_URL;
+      var REDIRECT_DELAY = window.APP_CONFIG.REDIRECT_DELAY;
 
-  function uuid(){
-    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g,function(c){
-      var r=Math.random()*16|0,v=c=='x'?r:(r&0x3|0x8);
-      return v.toString(16);
-    });
-  }
+      var clicked = false;
 
-  function sendFallbackPixel(eventName, params){
-    var url = 'https://www.facebook.com/tr?id=' + encodeURIComponent(PIXEL_ID) +
-      '&ev=' + encodeURIComponent(eventName) +
-      '&dl=' + encodeURIComponent(window.location.href) +
-      '&rl=' + encodeURIComponent(document.referrer || '') +
-      '&if=false' +
-      '&ts=' + Date.now();
+      function uuidv4(){
+        if(window.crypto && typeof window.crypto.randomUUID === "function"){
+          return window.crypto.randomUUID();
+        }
 
-    if(params){
-      Object.keys(params).forEach(function(key){
-        url += '&cd[' + encodeURIComponent(key) + ']=' + encodeURIComponent(params[key]);
+        return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g,function(c){
+          var r = Math.random() * 16 | 0;
+          var v = c === "x" ? r : (r & 0x3 | 0x8);
+          return v.toString(16);
+        });
+      }
+
+      function buildParams(area){
+        return {
+          action_source: "website",
+          content_name: "line_contact_click",
+          content_category: "line_redirect",
+          contact_method: "line",
+          click_area: area || "btn",
+          destination: "official_line",
+          event_source_url: window.location.href
+        };
+      }
+
+      function sendFallbackPixel(eventName, params, eventID){
+        var url = "https://www.facebook.com/tr?id=" + encodeURIComponent(PIXEL_ID) +
+          "&ev=" + encodeURIComponent(eventName) +
+          "&dl=" + encodeURIComponent(window.location.href) +
+          "&rl=" + encodeURIComponent(document.referrer || "") +
+          "&if=false" +
+          "&ts=" + Date.now() +
+          "&eid=" + encodeURIComponent(eventID || uuidv4());
+
+        if(params){
+          Object.keys(params).forEach(function(key){
+            url += "&cd[" + encodeURIComponent(key) + "]=" + encodeURIComponent(params[key]);
+          });
+        }
+
+        var img = new Image();
+        img.src = url;
+      }
+
+      function firePixelEvents(area){
+        var params = buildParams(area);
+
+        var leadEventID = "lead_" + uuidv4();
+        var contactEventID = "contact_" + uuidv4();
+        var lineClickEventID = "lineclick_" + uuidv4();
+
+        /*
+          主要事件：
+          使用 trackSingle，明確指定送到劉阿姨 Pixel
+        */
+        if(typeof fbq === "function"){
+          try{
+            fbq(
+              "trackSingle",
+              PIXEL_ID,
+              "Lead",
+              params,
+              {eventID: leadEventID}
+            );
+          }catch(e){}
+
+          try{
+            fbq(
+              "trackSingle",
+              PIXEL_ID,
+              "Contact",
+              params,
+              {eventID: contactEventID}
+            );
+          }catch(e){}
+
+          try{
+            fbq(
+              "trackSingleCustom",
+              PIXEL_ID,
+              "LineClick",
+              params,
+              {eventID: lineClickEventID}
+            );
+          }catch(e){}
+        }
+
+        /*
+          備援事件：
+          就算 fbq 被擋，Network 仍有機會看到 facebook.com/tr
+        */
+        sendFallbackPixel("Lead", params, leadEventID);
+        sendFallbackPixel("Contact", params, contactEventID);
+        sendFallbackPixel("LineClick", params, lineClickEventID);
+      }
+
+      function goLine(){
+        window.location.href = LINE_URL;
+      }
+
+      var btn = document.querySelector(".goLine");
+
+      if(btn){
+        btn.addEventListener("click", function(e){
+          e.preventDefault();
+
+          if(clicked) return;
+          clicked = true;
+
+          var area = btn.getAttribute("data-area") || "btn";
+
+          firePixelEvents(area);
+
+          setTimeout(goLine, REDIRECT_DELAY);
+        }, {passive:false});
+      }
+
+      /*
+        使用者返回上一頁時，允許重新點擊
+      */
+      window.addEventListener("pageshow", function(){
+        clicked = false;
       });
-    }
-
-    var img = new Image();
-    img.src = url;
-  }
-
-  function fireEvents(area){
-    var base = {
-      content_name:"line_contact_click",
-      content_category:"line_redirect",
-      contact_method:"line",
-      click_area:area || "main_cta",
-      destination:"official_line"
-    };
-
-    var purchaseBase = {
-      content_name:"line_contact_click",
-      content_category:"line_redirect",
-      contact_method:"line",
-      click_area:area || "main_cta",
-      destination:"official_line",
-      value:0,
-      currency:"TWD"
-    };
-
-    /*
-      橙總派對原本寫法
-    */
-    if(typeof fbq === 'function'){
-      fbq('track','Contact',base,{eventID:'c_'+uuid()});
-      fbq('track','Lead',base,{eventID:'l_'+uuid()});
-      fbq('track','Purchase',purchaseBase,{eventID:'p_'+uuid()});
-      fbq('trackCustom','LineClick',base,{eventID:'lc_'+uuid()});
-    }
-
-    /*
-      備援強制回傳：
-      Network 一定會看到 facebook.com/tr
-    */
-    sendFallbackPixel('Contact', base);
-    sendFallbackPixel('Lead', base);
-    sendFallbackPixel('Purchase', purchaseBase);
-    sendFallbackPixel('LineClick', base);
-  }
-
-  function handleClick(e){
-    e.preventDefault();
-    if(hasClicked) return;
-    hasClicked = true;
-
-    var area = this.dataset.area || "main_cta";
-    fireEvents(area);
-
-    setTimeout(function(){
-      window.location.href = LINE_URL;
-    }, REDIRECT_DELAY);
-  }
-
-  document.querySelectorAll('.goLine').forEach(function(el){
-    el.addEventListener('click', handleClick, { passive:false });
-  });
-})();
-</script>
-
+    })();
+  </script>
 </body>
 </html>
+```
